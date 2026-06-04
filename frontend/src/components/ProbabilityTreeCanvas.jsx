@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import WebGLBackground from './WebGLBackground';
 
-
 // HEATMAP COLOR LOGIC
 const getDynamicColor = (prob, highestProb) => {
   if (prob === highestProb) return 'bg-sky-400 drop-shadow-[0_0_20px_rgba(56,189,248,0.8)]';
@@ -12,7 +11,7 @@ const getDynamicColor = (prob, highestProb) => {
   return 'bg-slate-700/50';
 };
 
-const ProbabilityTreeCanvas = ({ data, onReset }) => {
+const ProbabilityTreeCanvas = ({ data, onViewData, onReset }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // Mouse Tracking for Interactive Glow
@@ -66,13 +65,21 @@ const ProbabilityTreeCanvas = ({ data, onReset }) => {
             <div className="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-inner"></div>
             <div className="w-3 h-3 rounded-full bg-[#27c93f] shadow-inner"></div>
           </div>
+
           <div className="w-full text-center text-xs font-mono text-white/40 tracking-widest">
             bash ~ monte_carlo_results
           </div>
-          <button onClick={onReset} className="absolute right-4 text-xs font-mono text-sky-400 hover:text-white transition-colors">
-            [ Recalibrate ]
-          </button>
-        </div>
+
+          <div className="absolute right-4 flex space-x-4">
+            {/* THE NEW BUTTON */}
+            <button onClick={onViewData} className="text-xs font-mono text-purple-400 hover:text-white transition-colors">
+              [ View Ground Truth Data ]
+            </button>
+            <button onClick={onReset} className="text-xs font-mono text-sky-400 hover:text-white transition-colors">
+              [ Recalibrate ]
+            </button>
+          </div>
+        </div> {/* <--- THE MISSING DIV HAS BEEN RESTORED HERE */}
 
         {/* Content Area */}
         <div className="p-8 md:p-12 flex flex-col grow relative">
